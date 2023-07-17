@@ -15,11 +15,29 @@
 // "A+" to show that your changes allow alphabetical grades.
 //
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
+use std::fmt;
 
-// I AM NOT DONE
+
+pub enum Grade {
+    LetterGrade(String),
+    NumberGrade(f32)
+}
+
+impl fmt::Display for Grade {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Grade::LetterGrade(letter_grade) => {
+                write!(f, "{}", letter_grade)
+            },
+            Grade::NumberGrade(number_grade) => {
+                write!(f, "{}", number_grade)
+            }
+        }
+    }
+}
 
 pub struct ReportCard {
-    pub grade: f32,
+    pub grade: Grade,
     pub student_name: String,
     pub student_age: u8,
 }
@@ -38,7 +56,7 @@ mod tests {
     #[test]
     fn generate_numeric_report_card() {
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: Grade::NumberGrade(2.1),
             student_name: "Tom Wriggle".to_string(),
             student_age: 12,
         };
@@ -52,7 +70,7 @@ mod tests {
     fn generate_alphabetic_report_card() {
         // TODO: Make sure to change the grade here after you finish the exercise.
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: Grade::LetterGrade("A+".to_string()),
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
         };
